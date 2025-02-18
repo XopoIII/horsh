@@ -5,33 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Антон Хорш / Tony Horsh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #ffffff;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 2em;
+            text-align: center;
+        }
+        #author-name {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        #email {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div id="content"></div>
+    <div id="author-name">Антон Хорш</div>
+    <div id="email">anton@hor.sh</div>
 
     <script>
-        // Определение страны через заголовок Cloudflare
-        const country = (new URLSearchParams(window.location.search)).get('country') || '';
+        document.getElementById('author-name').textContent = 'Антон Хорш';
+        document.getElementById('email').textContent = 'anton@hor.sh';
+        document.title = 'Антон Хорш';
 
-        if (country === 'RU') {
-            document.getElementById('content').textContent = 'Антон Хорш';
-            document.title = 'Антон Хорш';
-        } else {
-            document.getElementById('content').textContent = 'Tony Horsh';
-            document.title = 'Tony Horsh';
-        }
+        fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                return fetch(`https://ipinfo.io/${data.ip}/json`);
+            })
+            .then(response => response.json())
+            .then(data => {
+                const country = data.country || '';
+                if (country !== 'RU') {
+                    document.getElementById('author-name').textContent = 'Tony Horsh';
+                    document.getElementById('email').textContent = 'tony@hor.sh';
+                    document.title = 'Tony Horsh';
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching country data:", error);
+            });
     </script>
 </body>
 </html>
