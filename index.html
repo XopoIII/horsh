@@ -4,20 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Антон Хорш / Tony Horsh</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <title id="page-title">Антон Хорш</title>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap">
+    </noscript>
     <style>
         body {
+            margin: 0;
+            font-family: 'Amatic SC', cursive;
+            font-size: 2em;
+            text-align: center;
+        }
+        .section {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #landing {
             background-color: #ffffff;
-            font-family: 'Amatic SC', cursive;
-            font-size: 2em;
-            text-align: center;
+        }
+        #author {
+            background-color: #f4f4f4;
+            padding: 50px 20px;
+        }
+        #author img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        #author-title {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
         #author-name {
             font-size: 2.5em;
@@ -28,12 +55,42 @@
             margin-top: 10px;
             color: #555;
         }
+        #bio {
+            max-width: 600px;
+            font-size: 1.2em;
+            color: #333;
+            text-align: justify;
+            line-height: 1.5;
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 1.5em;
+            }
+            #author img {
+                width: 150px;
+                height: 150px;
+            }
+            #author-title {
+                font-size: 2.5em;
+            }
+            #bio {
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="author-name">Антон Хорш</div>
-    <div id="email">anton@hor.sh</div>
-
+    <div id="landing" class="section">
+        <div id="author-name">Антон Хорш</div>
+        <div id="email">anton@hor.sh</div>
+    </div>
+    <div id="author" class="section">
+        <div id="author-title">Об авторе</div>
+        <img id="author-img" src="portrait.jpg" alt="Антон Хорш">
+        <div id="bio">
+            Антон Хорш — сказочник, который находит волшебство в самых простых вещах. В его историях оживают мандаринки, леса хранят древние тайны, а магия всегда ближе, чем кажется. Если вы слышали, как шепчется ветер в листве, или верили в необычные свойства обычных предметов — его книги для вас.
+        </div>
+    </div>
     <script>
         document.getElementById('author-name').textContent = 'Антон Хорш';
         document.getElementById('email').textContent = 'anton@hor.sh';
@@ -41,20 +98,19 @@
 
         fetch("https://api.ipify.org?format=json")
             .then(response => response.json())
-            .then(data => {
-                return fetch(`https://ipinfo.io/${data.ip}/json`);
-            })
+            .then(data => fetch(`https://ipinfo.io/${data.ip}/json`))
             .then(response => response.json())
             .then(data => {
-                const country = data.country || '';
-                if (country !== 'RU') {
+                if (data.country !== 'RU') {
                     document.getElementById('author-name').textContent = 'Tony Horsh';
                     document.getElementById('email').textContent = 'tony@hor.sh';
                     document.title = 'Tony Horsh';
+                    document.getElementById('bio').textContent = 'Tony Horsh is a storyteller who finds magic in the simplest things. In his stories, tangerines come to life, forests keep ancient secrets, and magic is always closer than it seems. If you have ever heard the whisper of the wind in the leaves or believed in the unusual properties of ordinary objects, his books are for you.';
+                    document.getElementById('author-img').alt = 'Tony Horsh';
                 }
             })
             .catch(error => {
-                console.error("Error fetching country data:", error);
+                console.error("Error fetching data:", error);
             });
     </script>
 </body>
