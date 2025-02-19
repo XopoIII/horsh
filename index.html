@@ -56,6 +56,11 @@
         #author {
             background-color: #f4f4f4;
             padding: 50px 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         #author img {
             width: 400px;
@@ -63,6 +68,7 @@
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 20px;
+            background-color: #ddd;
         }
         #author-title {
             font-size: 3em;
@@ -90,8 +96,8 @@
                 font-size: 1.5em;
             }
             #author img {
-                width: 150px;
-                height: 150px;
+                width: 300px;
+                height: 300px;
             }
             #author-title {
                 font-size: 2.5em;
@@ -109,45 +115,10 @@
     </div>
     <div id="author" class="section">
         <div id="author-title">Об авторе</div>
-        <img id="author-img" src="portrait.jpg" alt="Антон Хорш">
+        <img id="author-img" src="portrait.jpg" alt="Антон Хорш" onerror="this.style.visibility='hidden'">
         <div id="bio">
             Антон Хорш — сказочник, который находит волшебство в самых простых вещах. В его историях оживают мандаринки, леса хранят древние тайны, а магия всегда ближе, чем кажется. Если вы слышали, как шепчется ветер в листве, или верили в необычные свойства обычных предметов — его книги для вас.
         </div>
     </div>
-    <script>
-        document.getElementById('author-name').textContent = 'Антон Хорш';
-        document.getElementById('email').textContent = 'anton@hor.sh';
-        document.title = 'Антон Хорш';
-        document.getElementById('author-title').textContent = 'Об авторе';
-
-        fetch("https://api.ipify.org?format=json")
-            .then(response => response.json())
-            .then(data => fetch(`https://ipinfo.io/${data.ip}/json`))
-            .then(response => response.json())
-            .then(data => {
-                if (data.country !== 'RU') {
-                    document.getElementById('author-name').textContent = 'Tony Horsh';
-                    document.getElementById('email').textContent = 'tony@hor.sh';
-                    document.title = 'Tony Horsh';
-                    document.getElementById('author-title').textContent = 'About the Author';
-                    document.getElementById('bio').textContent = 'Tony Horsh is a storyteller who finds magic in the simplest things. In his stories, tangerines come to life, forests keep ancient secrets, and magic is always closer than it seems. If you have ever heard the whisper of the wind in the leaves or believed in the unusual properties of ordinary objects, his books are for you.';
-                    document.getElementById('author-img').alt = 'Tony Horsh';
-                    
-                    document.getElementById('meta-description').setAttribute("content", "Tony Horsh is a storyteller who finds magic in everyday things. His books bring fantasy to life.");
-                    document.getElementById('meta-keywords').setAttribute("content", "Tony Horsh, books, fantasy, storytelling, author");
-                    document.getElementById('og-title').setAttribute("content", "Tony Horsh - Storyteller");
-                    document.getElementById('og-description').setAttribute("content", "The official website of Tony Horsh, author of magical stories.");
-                    
-                    let schemaData = JSON.parse(document.getElementById('schema-data').textContent);
-                    schemaData.name = "Tony Horsh";
-                    schemaData.description = "Storyteller who finds magic in the simplest things.";
-                    schemaData.email = "tony@hor.sh";
-                    document.getElementById('schema-data').textContent = JSON.stringify(schemaData);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-            });
-    </script>
 </body>
 </html>
