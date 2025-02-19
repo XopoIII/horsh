@@ -23,7 +23,8 @@
           font-style: normal;
           font-weight: 400;
           font-display: swap;
-          src: url('/AmaticSC-Regular-Cyrillic.woff2') format('woff2'),
+          src: local('Amatic SC Regular'),
+               url('/AmaticSC-Regular-Cyrillic.woff2') format('woff2'),
                url('/AmaticSC-Regular-Latin.woff2') format('woff2');
         }
         @font-face {
@@ -31,8 +32,12 @@
           font-style: normal;
           font-weight: 700;
           font-display: swap;
-          src: url('/AmaticSC-Bold-Cyrillic.woff2') format('woff2'),
+          src: local('Amatic SC Bold'),
+               url('/AmaticSC-Bold-Cyrillic.woff2') format('woff2'),
                url('/AmaticSC-Bold-Latin.woff2') format('woff2');
+        }
+        html {
+            font-family: 'Amatic SC', sans-serif;
         }
         body {
             margin: 0;
@@ -107,6 +112,9 @@
             }
         }
     </style>
+    <link rel="preconnect" href="https://api.ipify.org" crossorigin>
+    <link rel="preconnect" href="https://ipinfo.io" crossorigin>
+    <link rel="dns-prefetch" href="https://api.ipify.org/">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -138,12 +146,12 @@
     </div>
     <div id="author" class="section">
         <div id="author-title">Об авторе</div>
-        <img id="author-img" src="portrait.jpg" alt="Антон Хорш" onerror="this.style.visibility='hidden'">
+        <img id="author-img" src="portrait.jpg" alt="Антон Хорш" width="400" height="400" loading="lazy" onerror="this.style.visibility='hidden'">
         <div id="bio">
             Антон Хорш — сказочник, который находит волшебство в самых простых вещах. В его историях оживают мандаринки, леса хранят древние тайны, а магия всегда ближе, чем кажется. Если вы слышали, как шепчется ветер в листве, или верили в необычные свойства обычных предметов — его книги для вас.
         </div>
     </div>
-    <script>
+    <script defer>
         async function updateLanguage() {
             try {
                 const ipResponse = await fetch("https://api.ipify.org?format=json");
