@@ -139,7 +139,7 @@
                 const locationData = await locationResponse.json();
                 
                 if (locationData.country !== 'RU') {
-                    document.getElementById('html-lang').textContent = 'en';
+                    document.getElementById('html-lang').setAttribute("lang", "en");
                     document.getElementById('author-name').textContent = 'Tony Horsh';
                     document.getElementById('email').textContent = 'tony@hor.sh';
                     document.title = 'Tony Horsh';
