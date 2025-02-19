@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="html-lang" lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="theme-color" content="#ffffff">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Антон Хорш</title>
@@ -12,29 +13,8 @@
     <meta property="og:description" id="og-description" content="Официальный сайт Антона Хорша, автора волшебных историй.">
     <meta property="og:image" content="portrait.jpg">
     <meta property="og:type" content="website">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="manifest" href="site.webmanifest">
-    <script type="application/ld+json" id="schema-data">
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Антон Хорш",
-            "image": "portrait.jpg",
-            "jobTitle": "Писатель",
-            "description": "Сказочник, который находит волшебство в самых простых вещах.",
-            "email": "anton@hor.sh",
-            "sameAs": [
-                "https://facebook.com/antonhorsh",
-                "https://instagram.com/antonhorsh",
-                "https://twitter.com/antonhorsh",
-                "https://vk.com/anton.horsh",
-                "https://t.me/antonhorsh"
-            ]
-        }
-    </script>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" as="style">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
@@ -114,6 +94,29 @@
             }
         }
     </style>
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="manifest" href="site.webmanifest">
+    <script type="application/ld+json" id="schema-data">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Антон Хорш",
+            "image": "portrait.jpg",
+            "jobTitle": "Писатель",
+            "description": "Сказочник, который находит волшебство в самых простых вещах.",
+            "email": "anton@hor.sh",
+            "sameAs": [
+                "https://facebook.com/antonhorsh",
+                "https://instagram.com/antonhorsh",
+                "https://twitter.com/antonhorsh",
+                "https://vk.com/anton.horsh",
+                "https://t.me/antonhorsh"
+            ]
+        }
+    </script>
 </head>
 <body>
     <div id="landing" class="section">
@@ -136,6 +139,7 @@
                 const locationData = await locationResponse.json();
                 
                 if (locationData.country !== 'RU') {
+                    document.getElementById('html-lang').textContent = 'en';
                     document.getElementById('author-name').textContent = 'Tony Horsh';
                     document.getElementById('email').textContent = 'tony@hor.sh';
                     document.title = 'Tony Horsh';
