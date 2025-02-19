@@ -128,17 +128,14 @@
         </div>
     </div>
     <script>
-        document.getElementById('author-name').textContent = 'Антон Хорш';
-        document.getElementById('email').textContent = 'anton@hor.sh';
-        document.title = 'Антон Хорш';
-        document.getElementById('author-title').textContent = 'Об авторе';
-
-        fetch("https://api.ipify.org?format=json")
-            .then(response => response.json())
-            .then(data => fetch(`https://ipinfo.io/${data.ip}/json`))
-            .then(response => response.json())
-            .then(data => {
-                if (data.country !== 'RU') {
+        async function updateLanguage() {
+            try {
+                const ipResponse = await fetch("https://api.ipify.org?format=json");
+                const ipData = await ipResponse.json();
+                const locationResponse = await fetch(`https://ipinfo.io/${ipData.ip}/json`);
+                const locationData = await locationResponse.json();
+                
+                if (locationData.country !== 'RU') {
                     document.getElementById('author-name').textContent = 'Tony Horsh';
                     document.getElementById('email').textContent = 'tony@hor.sh';
                     document.title = 'Tony Horsh';
@@ -150,6 +147,7 @@
                     document.getElementById('meta-keywords').setAttribute("content", "Tony Horsh, books, fantasy, storytelling, author");
                     document.getElementById('og-title').setAttribute("content", "Tony Horsh - Storyteller");
                     document.getElementById('og-description').setAttribute("content", "The official website of Tony Horsh, author of magical stories.");
+                    document.getElementById('og-image').setAttribute("content", "portrait_en.jpg");
                     
                     let schemaData = JSON.parse(document.getElementById('schema-data').textContent);
                     schemaData.name = "Tony Horsh";
@@ -157,10 +155,12 @@
                     schemaData.email = "tony@hor.sh";
                     document.getElementById('schema-data').textContent = JSON.stringify(schemaData);
                 }
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-            });
+            } catch (error) {
+                console.error("Error fetching location data:", error);
+            }
+        }
+        
+        updateLanguage();
     </script>
 </body>
 </html>
