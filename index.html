@@ -26,6 +26,7 @@
           src: local('Amatic SC Regular'),
                url('/AmaticSC-Regular-Cyrillic.woff2') format('woff2'),
                url('/AmaticSC-Regular-Latin.woff2') format('woff2');
+          unicode-range: U+0400-04FF, U+0020-007F;
         }
         @font-face {
           font-family: 'Amatic SC';
@@ -35,6 +36,7 @@
           src: local('Amatic SC Bold'),
                url('/AmaticSC-Bold-Cyrillic.woff2') format('woff2'),
                url('/AmaticSC-Bold-Latin.woff2') format('woff2');
+          unicode-range: U+0400-04FF, U+0020-007F;
         }
         html {
             font-family: 'Amatic SC', sans-serif;
@@ -152,40 +154,48 @@
         </div>
     </div>
     <script defer>
-        async function updateLanguage() {
-            try {
-                const ipResponse = await fetch("https://api.ipify.org?format=json");
-                const ipData = await ipResponse.json();
-                const locationResponse = await fetch(`https://ipinfo.io/${ipData.ip}/json`);
-                const locationData = await locationResponse.json();
-                
-                if (locationData.country !== 'RU') {
-                    document.getElementById('html-lang').setAttribute("lang", "en");
-                    document.getElementById('author-name').textContent = 'Tony Horsh';
-                    document.getElementById('email').textContent = 'tony@hor.sh';
-                    document.title = 'Tony Horsh';
-                    document.getElementById('author-title').textContent = 'About the Author';
-                    document.getElementById('bio').textContent = 'Tony Horsh is a storyteller who finds magic in the simplest things. In his stories, tangerines come to life, forests keep ancient secrets, and magic is always closer than it seems. If you have ever heard the whisper of the wind in the leaves or believed in the unusual properties of ordinary objects, his books are for you.';
-                    document.getElementById('author-img').alt = 'Tony Horsh';
+        document.addEventListener("DOMContentLoaded", async function() {
+            let userLang = navigator.language || navigator.userLanguage;
+            
+            if (!userLang.startsWith('ru')) {
+                setEnglishContent();
+            } else {
+                try {
+                    const ipResponse = await fetch("https://api.ipify.org?format=json");
+                    const ipData = await ipResponse.json();
+                    const locationResponse = await fetch(`https://ipinfo.io/${ipData.ip}/json`);
+                    const locationData = await locationResponse.json();
                     
-                    document.getElementById('meta-description').setAttribute("content", "Tony Horsh is a storyteller who finds magic in everyday things. His books bring fantasy to life.");
-                    document.getElementById('meta-keywords').setAttribute("content", "Tony Horsh, books, fantasy, storytelling, author");
-                    document.getElementById('og-title').setAttribute("content", "Tony Horsh - Storyteller");
-                    document.getElementById('og-description').setAttribute("content", "The official website of Tony Horsh, author of magical stories.");
-                    document.getElementById('og-image').setAttribute("content", "portrait_en.jpg");
-                    
-                    let schemaData = JSON.parse(document.getElementById('schema-data').textContent);
-                    schemaData.name = "Tony Horsh";
-                    schemaData.description = "Storyteller who finds magic in the simplest things.";
-                    schemaData.email = "tony@hor.sh";
-                    document.getElementById('schema-data').textContent = JSON.stringify(schemaData);
+                    if (locationData.country !== 'RU') {
+                        setEnglishContent();
+                    }
+                } catch (error) {
+                    console.error("Error fetching location data:", error);
                 }
-            } catch (error) {
-                console.error("Error fetching location data:", error);
             }
+        });
+
+        function setEnglishContent() {
+            document.getElementById('html-lang').setAttribute("lang", "en");
+            document.getElementById('author-name').textContent = 'Tony Horsh';
+            document.getElementById('email').textContent = 'tony@hor.sh';
+            document.title = 'Tony Horsh';
+            document.getElementById('author-title').textContent = 'About the Author';
+            document.getElementById('bio').textContent = 'Tony Horsh is a storyteller who finds magic in the simplest things. In his stories, tangerines come to life, forests keep ancient secrets, and magic is always closer than it seems. If you have ever heard the whisper of the wind in the leaves or believed in the unusual properties of ordinary objects, his books are for you.';
+            document.getElementById('author-img').alt = 'Tony Horsh';
+
+            document.getElementById('meta-description').setAttribute("content", "Tony Horsh is a storyteller who finds magic in everyday things. His books bring fantasy to life.");
+            document.getElementById('meta-keywords').setAttribute("content", "Tony Horsh, books, fantasy, storytelling, author");
+            document.getElementById('og-title').setAttribute("content", "Tony Horsh - Storyteller");
+            document.getElementById('og-description').setAttribute("content", "The official website of Tony Horsh, author of magical stories.");
+            document.getElementById('og-image').setAttribute("content", "portrait_en.jpg");
+
+            let schemaData = JSON.parse(document.getElementById('schema-data').textContent);
+            schemaData.name = "Tony Horsh";
+            schemaData.description = "Storyteller who finds magic in the simplest things.";
+            schemaData.email = "tony@hor.sh";
+            document.getElementById('schema-data').textContent = JSON.stringify(schemaData);
         }
-        
-        updateLanguage();
     </script>
 </body>
 </html>
